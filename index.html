@@ -164,9 +164,12 @@
             || window.innerWidth <= 768;
     }
 
-    window.addEventListener('onEmbeddedMessagingReady', function() {
+    window.addEventListener('onEmbeddedMessagingButtonCreated', function() {
         if (!isMobileDevice()) {
-            embeddedservice_bootstrap.utilAPI.launchChat();
+            embeddedservice_bootstrap.utilAPI.launchChat()
+                .catch(function(err) {
+                    console.warn('launchChat failed:', err);
+                });
         }
     });
 
@@ -191,6 +194,5 @@
     src='https://trailsignup-09ca171f290f17.my.site.com/ESWApexFinancialWeb1777069222735/assets/js/bootstrap.min.js'
     onload='initEmbeddedMessaging()'>
 </script>
-
 </body>
 </html>
