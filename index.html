@@ -159,10 +159,20 @@
     <p>&copy; 2026 Apex Global Private Bank. Page 1 of 20[cite: 2].</p>
 </footer>
 <script type='text/javascript'>
+	function isMobileDevice() {
+        return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+            || window.innerWidth <= 768;
+    }
 	function initEmbeddedMessaging() {
 		try {
 			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
 
+			// Listen for ready event, then auto-open on desktop only
+            embeddedservice_bootstrap.addEventHandler('onEmbeddedMessagingReady', () => {
+                if (!isMobileDevice()) {
+                    embeddedservice_bootstrap.utilAPI.launchChat();
+                }
+            });
 			embeddedservice_bootstrap.init(
 				'00DHs00000S6flO',
 				'ApexFinancial_Web',
